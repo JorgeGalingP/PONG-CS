@@ -18,15 +18,6 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/ball"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/player1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="148dp"
-            app:srcCompat="@drawable/ball" />
-
-        <ImageView
             android:id="@+id/pointsPlayer1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,15 +27,15 @@
             android:layout_toEndOf="@+id/player1"
             android:layout_toRightOf="@+id/player1"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/numero0" />
+            app:srcCompat="@android:color/transparent" />
 
         <ImageView
-            android:id="@+id/table"
+            android:id="@+id/net"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/table" />
+            app:srcCompat="@drawable/net" />
 
         <ImageView
             android:id="@+id/comPlayer"
@@ -73,7 +64,16 @@
             android:layout_marginRight="93dp"
             android:layout_toLeftOf="@+id/comPlayer"
             android:layout_toStartOf="@+id/comPlayer"
-            app:srcCompat="@drawable/numero0" />
+            app:srcCompat="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ball"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="148dp"
+            app:srcCompat="@drawable/ball" />
     </RelativeLayout>
 
     <GridLayout
