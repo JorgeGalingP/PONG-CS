@@ -15,87 +15,50 @@
     <RelativeLayout
         android:id="@+id/board"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/pointsPlayer1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="95dp"
-            android:layout_marginStart="95dp"
-            android:layout_toEndOf="@+id/player1"
-            android:layout_toRightOf="@+id/player1"
-            android:background="@android:color/transparent"
-            app:srcCompat="@android:color/transparent" />
-
-        <ImageView
-            android:id="@+id/net"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/net" />
-
-        <ImageView
-            android:id="@+id/comPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            app:srcCompat="@drawable/paddle" />
-
-        <ImageView
-            android:id="@+id/player1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            app:srcCompat="@drawable/paddle" />
-
-        <ImageView
-            android:id="@+id/pointsPlayer2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="93dp"
-            android:layout_marginRight="93dp"
-            android:layout_toLeftOf="@+id/comPlayer"
-            android:layout_toStartOf="@+id/comPlayer"
-            app:srcCompat="@android:color/transparent" />
-
-        <ImageView
-            android:id="@+id/ball"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/player1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="148dp"
-            app:srcCompat="@drawable/ball" />
-    </RelativeLayout>
-
-    <GridLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <Button
-            android:id="@+id/btnUp"
+        <ImageView
+            android:id="@+id/ball"
             android:layout_width="wrap_content"
-            android:layout_height="276dp"
-            android:background="@android:color/transparent" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ball" />
 
-        <Button
-            android:id="@+id/btnDown"
+        <ImageView
+            android:id="@+id/paddle"
             android:layout_width="wrap_content"
-            android:layout_height="292dp"
-            android:layout_column="0"
-            android:layout_row="26"
-            android:background="@android:color/transparent" />
-    </GridLayout>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/paddle" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <Button
+                android:id="@+id/btnUp"
+                android:layout_width="wrap_content"
+                android:layout_height="276dp"
+                android:background="@android:color/transparent" />
+
+            <Button
+                android:id="@+id/btnDown"
+                android:layout_width="wrap_content"
+                android:layout_height="292dp"
+                android:layout_column="0"
+                android:layout_row="26"
+                android:background="@android:color/transparent" />
+        </GridLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
