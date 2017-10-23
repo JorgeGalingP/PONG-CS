@@ -29,20 +29,12 @@
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/ball" />
 
-        <ImageView
-            android:id="@+id/paddle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/paddle" />
-
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentStart="true">
 
             <Button
                 android:id="@+id/btnUp"

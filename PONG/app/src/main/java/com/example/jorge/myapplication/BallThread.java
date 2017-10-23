@@ -33,7 +33,7 @@ public class BallThread implements Runnable {
         } else if ((!up && down) && (!((ball.getY() + ball.getHeight() + speedMove) >= (height)))) {
             ball.setY(ball.getY() + speedMove);
         }
-        control.postDelayed(this,(long)0.0005);
+        control.postDelayed(this, (long) 0.0005);
     }
 
     public MainActivity getMain() {

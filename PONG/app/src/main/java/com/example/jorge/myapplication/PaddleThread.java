@@ -5,6 +5,7 @@ import android.provider.Settings;
 import android.widget.ImageView;
 
 import android.os.Handler;
+import android.widget.RelativeLayout;
 
 /**
  * Created by Jorge on 20/10/2017.
@@ -13,25 +14,23 @@ import android.os.Handler;
 public class PaddleThread implements Runnable {
     private boolean changeDirection;
     private Handler control;
-    private int height,width, speedMove, direction;
+    private int speedMove, direction;
     private ImageView paddle;
-    MainActivity main;
+    private RelativeLayout board;
 
-    public PaddleThread(MainActivity main) {
+    public PaddleThread(RelativeLayout board, ImageView paddle) {
         control = new Handler();
         changeDirection = false;
-        this.main = main;
-        speedMove = 10;
+        this.board = board;
+        this.paddle = paddle;
+        speedMove = 5;
     }
 
     @Override
     public void run() {
-        paddle = main.getPaddle();
-        height = main.getBoard().getHeight();
-        width = main.getBoard().getWidth();
         direction = changeDirections(direction);
         paddleMovements(paddle);
-        control.postDelayed(this,(long)0.005);
+        control.postDelayed(this, (long) 0.005);
     }
 
     public void paddleMovements(ImageView paddle) {
@@ -55,32 +54,32 @@ public class PaddleThread implements Runnable {
         }
     }
 
-    public int changeDirections (int direction){
+    public int changeDirections(int direction) {
         if (((paddle.getY() + speedMove) <= 0) && (direction == 0)) {
             return 1;
         } else if (((paddle.getY() + speedMove) <= 0) && (direction == 2)) {
             return 3;
         }
 
-        if((paddle.getX()-speedMove <= 0)&&(direction == 0)){
-            System.out.println("ENTRO AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII 2");
+        if ((paddle.getX() - speedMove <= 0) && (direction == 0)) {
             return 2;
-        }else if((paddle.getX()-speedMove <= 0)&&(direction == 1)){
+        } else if ((paddle.getX() - speedMove <= 0) && (direction == 1)) {
             return 3;
         }
-        if ((paddle.getX()+paddle.getWidth()+speedMove >= width)&&(direction == 2)){
+        if ((paddle.getX() + paddle.getWidth() + speedMove >= board.getWidth() && (direction == 2))) {
             return 0;
-        }else if ((paddle.getX()+paddle.getWidth()+speedMove >= width)&&(direction == 3)){
+        } else if ((paddle.getX() + paddle.getWidth() + speedMove >= board.getWidth() && (direction == 3))) {
             return 1;
         }
 
-        if (((paddle.getY() + paddle.getHeight()) + speedMove >= height) && (direction == 1)) {
+        if (((paddle.getY() + paddle.getHeight()) + speedMove >= board.getHeight()) && (direction == 1)) {
             return 0;
-        } else if (((paddle.getY() + paddle.getHeight()) + speedMove >= height) && (direction == 3)) {
+        } else if (((paddle.getY() + paddle.getHeight()) + speedMove >= board.getHeight()) && (direction == 3)) {
             return 2;
         }
         return direction;
     }
+
     public boolean isChangeDirection() {
         return changeDirection;
     }
@@ -89,20 +88,20 @@ public class PaddleThread implements Runnable {
         this.changeDirection = changeDirection;
     }
 
+    public RelativeLayout getBoard() {
+        return board;
+    }
+
+    public void setBoard(RelativeLayout board) {
+        this.board = board;
+    }
+
     public Handler getControl() {
         return control;
     }
 
     public void setControl(Handler control) {
         this.control = control;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeigth(int height) {
-        this.height = height;
     }
 
     public int getSpeedMove() {
