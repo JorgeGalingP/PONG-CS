@@ -1,6 +1,8 @@
 package com.example.jorge.myapplication;
 
+import android.graphics.Color;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -9,9 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.example.jorge.myapplication.Elements.Ball;
+
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView ball;
+    private ImageView ballImage;
+    private Ball ball;
     private Handler controlPaddleCreator = new Handler();
     private BallThread ballThread;
     private RelativeLayout board;
@@ -20,13 +25,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ball = (ImageView) findViewById(R.id.ball);
+        ballImage = (ImageView) findViewById(R.id.ball);
         board = (RelativeLayout) findViewById(R.id.board);
 
+        ball = new Ball(ballImage, this);
         paddleCreator.run();
         ballThread = new BallThread(this);
-
-        paddleCreator.run();
         ballThread.run();
 
         final Button btnUp = (Button) findViewById(R.id.btnUp);
@@ -60,89 +64,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*Runnable ballMovements = new Runnable() {
-        @Override
-        public void run() {
-            boolean collision = detectBallCollisionPaddle(ball);
-            if (((ball.getX() < 0) || (ball.getX() > board.getWidth())) && (!collision)) {
-                ball.setX(board.getWidth() / 2);
-                ball.setY(board.getHeight() / 2);
-                direction = 0;
-            } else {
-                if (collision) {
-                    switch (direction) {
-                        case 0:
-                            direction = 2;
-                            break;
-                        case 1:
-                            direction = 3;
-                            break;
-                        case 2:
-                            direction = 0;
-                            break;
-                        case 3:
-                            direction = 1;
-                            break;
-                    }
-                }
 
-                if (((ball.getY() + speedBall) <= 0) && (direction == 0)) {
-                    direction = 1;
-                } else if (((ball.getY() + speedBall) <= 0) && (direction == 2)) {
-                    direction = 3;
-                }
-
-                if (((ball.getY() + ball.getHeight()) + speedMove >= board.getHeight()) && (direction == 1)) {
-                    direction = 0;
-                } else if (((ball.getY() + ball.getHeight()) + speedMove >= board.getHeight()) && (direction == 3)) {
-                    direction = 2;
-                }
-                ballMovements(ball);
-            }
-            controlBall.postDelayed(ballMovements, (long) 0.005);
-        }
-
-        public void changeBallDirectionByPaddle(int dir) {
-            switch (dir) {
-                case 0:
-                    dir = 2;
-                    break;
-                case 1:
-                    dir = 3;
-                    break;
-                case 2:
-                    dir = 0;
-                    break;
-                case 3:
-                    dir = 1;
-                    break;
-            }
-        }
-    };*/
-
-    /* public boolean detectBallCollisionPaddle(ImageView ball) {
-         //Collision paddle
-         if (((ball.getY() >= paddle.getY()) ||
-                 ((ball.getY() + ball.getHeight()) >= paddle.getY())) &&
-                 ((ball.getY() <= (paddle.getY() + paddle.getHeight())) ||
-                         ((ball.getY() + ball.getHeight()) <= (paddle.getY() + paddle.getHeight())))) {
-             if (((ball.getX() - speedBall) <= 0)) {
-                 ball.setX(paddle.getX() + paddle.getWidth());
-                 return true;
-             } else if ((ball.getX() <= (paddle.getX() + paddle.getWidth()))) {
-                 ball.setX(paddle.getX() + paddle.getWidth());
-                 return true;
-             }
-         }
-
-         return false;
-     }*/
     Runnable paddleCreator = new Runnable() {
         @Override
         public void run() {
-            PaddleThread paddleThread = new PaddleThread(board, createPaddle());
+            PaddleThread paddleThread = new PaddleThread(board, createPaddle(),ball);
             paddleThread.run();
-
             controlPaddleCreator.postDelayed(paddleCreator, (long) 10000);
 
         }
@@ -174,19 +101,41 @@ public class MainActivity extends AppCompatActivity {
         return paddle;
     }
 
-    public ImageView getBall() {
-        return ball;
+    public void changeBallColor (){
+        ball.damage();
+        switch(ball.getLives()){
+            case 2:
+                ball.getElement().setColorFilter(Color.rgb(255,255,0));
+                break;
+            case 1:
+                ball.getElement().setColorFilter(Color.rgb(255,102,0));
+                break;
+            case 0:
+                ball.getElement().setColorFilter(Color.rgb(255,0,0));
+                break;
+        }
     }
-
-    public void setBall(ImageView ball) {
-        this.ball = ball;
-    }
-
     public RelativeLayout getBoard() {
         return board;
     }
 
     public void setBoard(RelativeLayout board) {
         this.board = board;
+    }
+
+    public ImageView getBallImage() {
+        return ballImage;
+    }
+
+    public void setBallImage(ImageView ballImage) {
+        this.ballImage = ballImage;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 }

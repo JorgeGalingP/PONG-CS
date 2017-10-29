@@ -1,7 +1,8 @@
 package com.example.jorge.myapplication;
 
 import android.os.Handler;
-import android.widget.ImageView;
+
+import com.example.jorge.myapplication.Elements.Ball;
 
 
 /**
@@ -10,8 +11,8 @@ import android.widget.ImageView;
 
 public class BallThread implements Runnable {
     MainActivity main;
-    ImageView ball;
-    int height, speedMove = 10;
+    Ball ball;
+    int height;
     boolean down, up;
     Handler control;
 
@@ -21,17 +22,19 @@ public class BallThread implements Runnable {
     public BallThread(MainActivity main) {
         this.main = main;
         down = up = false;
+        ball = main.getBall();
         control = new Handler();
     }
 
     @Override
     public void run() {
-        ball = main.getBall();
-        height = main.getBoard().getHeight();
-        if ((up && !down) && (!((ball.getY() - speedMove) <= 0))) {
-            ball.setY(ball.getY() - speedMove);
-        } else if ((!up && down) && (!((ball.getY() + ball.getHeight() + speedMove) >= (height)))) {
-            ball.setY(ball.getY() + speedMove);
+        if(ball.getElement().getY()!= ball.getElement().getY()+ball.getElement().getY()+ball.getElement().getHeight()) {//waiting for initilization of main activity
+            height = main.getBoard().getHeight();
+            if ((up && !down) && (!((ball.getElement().getY() - ball.getSpeed()) <= 0))) {
+                ball.getElement().setY(ball.getElement().getY() - ball.getSpeed());
+            } else if ((!up && down) && (!((ball.getElement().getY() + ball.getElement().getHeight() + ball.getSpeed()) >= (height)))) {
+                ball.getElement().setY(ball.getElement().getY() + ball.getSpeed());
+            }
         }
         control.postDelayed(this, (long) 0.0005);
     }
@@ -44,28 +47,12 @@ public class BallThread implements Runnable {
         this.main = main;
     }
 
-    public ImageView getBall() {
-        return ball;
-    }
-
-    public void setBall(ImageView ball) {
-        this.ball = ball;
-    }
-
     public int getHeight() {
         return height;
     }
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public int getSpeedMove() {
-        return speedMove;
-    }
-
-    public void setSpeedMove(int speedMove) {
-        this.speedMove = speedMove;
     }
 
     public boolean isDown() {
