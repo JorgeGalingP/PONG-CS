@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private BallThread ballThread;
     private RelativeLayout board;
     private List<PaddleThread> paddles = new ArrayList<>();
+    private int num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     Runnable paddleCreator = new Runnable() {
         @Override
         public void run() {
-            PaddleThread paddleThread = new PaddleThread(board, createPaddle(),ball);
+            num++;
+            PaddleThread paddleThread = new PaddleThread(board, createPaddle(),ball,num);
             paddles.add(paddleThread);
             paddleThread.run();
             controlPaddleCreator.postDelayed(paddleCreator, (long) 10000);
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             Intent intent = new Intent(this,GameOverActivity.class);
             startActivity(intent);
+            controlPaddleCreator.removeCallbacks(paddleCreator); //stop the calls for paddleCreator runnable
             for (PaddleThread p: paddles){
                 p.stop();
             }

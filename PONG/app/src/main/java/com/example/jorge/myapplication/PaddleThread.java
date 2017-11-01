@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.widget.RelativeLayout;
 
 import com.example.jorge.myapplication.Elements.Ball;
-import com.example.jorge.myapplication.Elements.Element;
 import com.example.jorge.myapplication.Elements.Paddle;
 
 /**
@@ -15,28 +14,32 @@ import com.example.jorge.myapplication.Elements.Paddle;
  */
 
 public class PaddleThread implements Runnable {
-    private boolean changeDirection;
+    private boolean changeDirection,stop = false;
     private Handler control;
-    private int direction;
+    private int direction, numero;
     private Ball ball;
     private Paddle paddle;
     private RelativeLayout board;
 
-    public PaddleThread(RelativeLayout board, ImageView paddle, Ball ball) {
+    public PaddleThread(RelativeLayout board, ImageView paddle, Ball ball, int num) {
         control = new Handler();
         changeDirection = false;
         this.board = board;
         this.ball = ball;
         this.paddle = new Paddle(paddle);
+        this.numero = num;
     }
 
     @Override
     public void run() {
         if (paddle.getElement().getY() != paddle.getElement().getY() + paddle.getElement().getHeight()) {//wait for initilization of main activity
-            direction = changeDirections(direction);
-            paddleMovements(paddle.getElement());
+            if(!stop) {
+                direction = changeDirections(direction);
+                paddleMovements(paddle.getElement());
+            }
         }
         control.postDelayed(this, (long) 0.005);
+
     }
 
     public void paddleMovements(ImageView paddle) {
@@ -101,9 +104,13 @@ public class PaddleThread implements Runnable {
         return direction;
     }
 
-    public void stop() {
-        control.removeCallbacks(this);
-        stop();
+    public void stop(){
+        stop = true;
+        Thread t = new Thread(this);
+        try {
+            t.join();
+        }catch (InterruptedException e){}
+
     }
 
     public boolean detectBallCollisionPaddle(ImageView ball) {
@@ -114,7 +121,6 @@ public class PaddleThread implements Runnable {
                 ((paddle.getElement().getY() <= (ball.getY() + ball.getHeight())) ||
                         ((paddle.getElement().getY() + paddle.getElement().getHeight()) <= (ball.getY() + ball.getHeight())))) {
             if (((paddle.getElement().getX() - paddle.getSpeed()) <= 0)) {
-                //ball.setX(paddle.getElement().getX() + paddel.getElement().getWidth());
                 paddle.getElement().setX(ball.getX() + ball.getWidth());
                 return true;
             } else if ((paddle.getElement().getX() <= (ball.getX() + ball.getWidth()))) {
