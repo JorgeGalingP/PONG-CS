@@ -17,7 +17,7 @@ import com.example.jorge.myapplication.Elements.Paddle;
 public class PaddleThread implements Runnable {
     private boolean changeDirection;
     private Handler control;
-    private int  direction;
+    private int direction;
     private Ball ball;
     private Paddle paddle;
     private RelativeLayout board;
@@ -27,7 +27,7 @@ public class PaddleThread implements Runnable {
         changeDirection = false;
         this.board = board;
         this.ball = ball;
-        this.paddle= new Paddle (paddle);
+        this.paddle = new Paddle(paddle);
     }
 
     @Override
@@ -86,7 +86,6 @@ public class PaddleThread implements Runnable {
                 return 2;
             }
         } else {
-            System.out.println("CHOOOOQUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             ball.getMain().changeBallColor();
             switch (direction) {
                 case 0:
@@ -100,6 +99,11 @@ public class PaddleThread implements Runnable {
             }
         }
         return direction;
+    }
+
+    public void stop() {
+        control.removeCallbacks(this);
+        stop();
     }
 
     public boolean detectBallCollisionPaddle(ImageView ball) {

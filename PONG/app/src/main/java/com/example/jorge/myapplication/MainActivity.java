@@ -1,8 +1,8 @@
 package com.example.jorge.myapplication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -13,6 +13,9 @@ import android.widget.RelativeLayout;
 
 import com.example.jorge.myapplication.Elements.Ball;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageView ballImage;
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler controlPaddleCreator = new Handler();
     private BallThread ballThread;
     private RelativeLayout board;
-
+    private List<PaddleThread> paddles = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             PaddleThread paddleThread = new PaddleThread(board, createPaddle(),ball);
+            paddles.add(paddleThread);
             paddleThread.run();
             controlPaddleCreator.postDelayed(paddleCreator, (long) 10000);
 
@@ -103,16 +107,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeBallColor (){
         ball.damage();
-        switch(ball.getLives()){
-            case 2:
-                ball.getElement().setColorFilter(Color.rgb(255,255,0));
-                break;
-            case 1:
-                ball.getElement().setColorFilter(Color.rgb(255,102,0));
-                break;
-            case 0:
-                ball.getElement().setColorFilter(Color.rgb(255,0,0));
-                break;
+        if(ball.getLives()>=0) {
+            switch (ball.getLives()) {
+                case 2:
+                    ball.getElement().setColorFilter(Color.rgb(255, 255, 0));
+                    break;
+                case 1:
+                    ball.getElement().setColorFilter(Color.rgb(255, 102, 0));
+                    break;
+                case 0:
+                    ball.getElement().setColorFilter(Color.rgb(255, 0, 0));
+                    break;
+            }
+        }else{
+            finish();
+            Intent intent = new Intent(this,GameOverActivity.class);
+            startActivity(intent);
+            for (PaddleThread p: paddles){
+                p.stop();
+            }
         }
     }
     public RelativeLayout getBoard() {
