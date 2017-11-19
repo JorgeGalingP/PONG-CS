@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        paddle = (ImageView) findViewById(R.id.paddle);
+        //paddle = (ImageView) findViewById(R.id.paddle);
         ball = (ImageView) findViewById(R.id.ball);
         board = (RelativeLayout) findViewById(R.id.board);
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //ballMovements.run();
 
 
-        final Button btnUp = (Button) findViewById(R.id.btnUp);
+        /*final Button btnUp = (Button) findViewById(R.id.btnUp);
         btnUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
-        });
+        });*/
 
         final Button btnDown = (Button) findViewById(R.id.btnDown);
         btnDown.setOnTouchListener(new View.OnTouchListener() {

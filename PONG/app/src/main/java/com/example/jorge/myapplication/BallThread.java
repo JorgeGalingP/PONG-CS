@@ -7,6 +7,10 @@ import com.example.jorge.myapplication.Elements.Ball;
 
 /**
  * Created by Jorge on 21/10/2017.
+
+
+/**
+ * Created by Jorge on 21/10/2017.
  */
 
 public class BallThread implements Runnable {
@@ -35,6 +39,24 @@ public class BallThread implements Runnable {
             } else if ((!up && down) && (!((ball.getElement().getY() + ball.getElement().getHeight() + ball.getSpeed()) >= (height)))) {
                 ball.getElement().setY(ball.getElement().getY() + ball.getSpeed());
             }
+            /*switch (direction) {//rebotes
+                case 0: //arriba izquierda
+                    paddle.setY(paddle.getY() - main.getPaddle().getSpeed());
+                    paddle.setX(paddle.getX() - main.getPaddle().getSpeed());
+                    break;
+                case 1: //abajo izquierda
+                    paddle.setY(paddle.getY() + main.getPaddle().getSpeed());
+                    paddle.setX(paddle.getX() - main.getPaddle().getSpeed());
+                    break;
+                case 2://arriba derecha
+                    paddle.setY(paddle.getY() - main.getPaddle().getSpeed());
+                    paddle.setX(paddle.getX() + main.getPaddle().getSpeed());
+                    break;
+                case 3: //abajo derecha
+                    paddle.setY(paddle.getY() + main.getPaddle().getSpeed());
+                    paddle.setX(paddle.getX() + main.getPaddle().getSpeed());
+                    break;
+            }*/
         }
         control.postDelayed(this, (long) 0.0005);
     }

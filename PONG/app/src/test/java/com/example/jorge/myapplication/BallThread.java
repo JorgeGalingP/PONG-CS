@@ -26,7 +26,7 @@ public class BallThread implements Runnable {
 
     @Override
     public void run() {
-        ball = main.getBall();
+        //ball = main.getBall();
         height = main.getBoard().getHeight();
         if ((up && !down) && (!((ball.getY() - speedMove) <= 0))) {
             ball.setY(ball.getY() - speedMove);

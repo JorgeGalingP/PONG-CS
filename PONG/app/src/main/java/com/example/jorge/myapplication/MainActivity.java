@@ -1,52 +1,94 @@
 package com.example.jorge.myapplication;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.jorge.myapplication.Elements.Ball;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.jorge.myapplication.Elements.Paddle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView ballImage;
+    private ImageView ballImage, paddleImage;
     private Ball ball;
-    private Handler controlPaddleCreator = new Handler();
+    private Paddle paddle;
+    private PaddleThread paddleThread;
     private BallThread ballThread;
     private RelativeLayout board;
-    private List<PaddleThread> paddles = new ArrayList<>();
-    private int num;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ballImage = (ImageView) findViewById(R.id.ball);
+        paddleImage = (ImageView) findViewById(R.id.paddle);
         board = (RelativeLayout) findViewById(R.id.board);
 
-        ball = new Ball(ballImage, this);
-        paddleCreator.run();
+        ball = new Ball(ballImage);
+        paddle = new Paddle(paddleImage);
         ballThread = new BallThread(this);
-        ballThread.run();
+        paddleThread = new PaddleThread(this);
+        paddleThread.run();
+        //ballThread.run();
 
-        final Button btnUp = (Button) findViewById(R.id.btnUp);
-        btnUp.setOnTouchListener(new View.OnTouchListener() {
+        final Button btnUp1 = (Button) findViewById(R.id.btnUp1);
+        btnUp1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
-                    ballThread.setDown(false);
-                    ballThread.setUp(true);
+                    paddleThread.setDirection(0);
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    ballThread.setUp(false);
+                    paddleThread.setDirection(-1);
+                }
+                return true;
+            }
+        });
+
+        final Button btnUp2 = (Button) findViewById(R.id.btnUp2);
+        btnUp2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
+                    paddleThread.setDirection(0);
+                }
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    paddleThread.setDirection(-1);
+                }
+                return true;
+            }
+        });
+
+        final Button btnLeft = (Button) findViewById(R.id.btnLeft);
+        btnLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
+                    paddleThread.setDirection(3);
+                }
+                if ((event.getAction() == MotionEvent.ACTION_UP)) {
+                    paddleThread.setDirection(-1);
+                }
+                return true;
+            }
+        });
+
+        final Button btnRight = (Button) findViewById(R.id.btnRight);
+        btnRight.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
+                    paddleThread.setDirection(2);
+                }
+                if ((event.getAction() == MotionEvent.ACTION_UP)) {
+                    paddleThread.setDirection(-1);
                 }
                 return true;
             }
@@ -57,11 +99,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
-                    ballThread.setUp(false);
-                    ballThread.setDown(true);
+                    paddleThread.setDirection(1);
                 }
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    ballThread.setDown(false);
+                if ((event.getAction() == MotionEvent.ACTION_UP)) {
+                    paddleThread.setDirection(-1);
+                }
+                return true;
+            }
+        });
+
+        final Button btnShot = (Button) findViewById(R.id.btnShot);
+        btnShot.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
+
                 }
                 return true;
             }
@@ -69,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    Runnable paddleCreator = new Runnable() {
+    /*Runnable paddleCreator = new Runnable() {
         @Override
         public void run() {
             num++;
@@ -105,9 +157,9 @@ public class MainActivity extends AppCompatActivity {
         paddle.setY(board.getHeight() / 2);
         board.addView(paddle);
         return paddle;
-    }
+    }*/
 
-    public void changeBallColor (){
+    /*public void changeBallColor (){
         ball.damage();
         if(ball.getLives()>=0) {
             switch (ball.getLives()) {
@@ -130,7 +182,16 @@ public class MainActivity extends AppCompatActivity {
                 p.stop();
             }
         }
+    }*/
+
+    public Paddle getPaddle() {
+        return paddle;
     }
+
+    public void setPaddle(Paddle paddle) {
+        this.paddle = paddle;
+    }
+
     public RelativeLayout getBoard() {
         return board;
     }

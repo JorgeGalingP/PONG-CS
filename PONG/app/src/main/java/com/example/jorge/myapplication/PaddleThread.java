@@ -16,26 +16,19 @@ import com.example.jorge.myapplication.Elements.Paddle;
 public class PaddleThread implements Runnable {
     private boolean changeDirection,stop = false;
     private Handler control;
-    private int direction, numero;
-    private Ball ball;
-    private Paddle paddle;
-    private RelativeLayout board;
+    private MainActivity main;
+    private int direction = -1;
 
-    public PaddleThread(RelativeLayout board, ImageView paddle, Ball ball, int num) {
-        control = new Handler();
-        changeDirection = false;
-        this.board = board;
-        this.ball = ball;
-        this.paddle = new Paddle(paddle);
-        this.numero = num;
+    public PaddleThread(MainActivity main) {
+        this.main = main;
     }
 
     @Override
     public void run() {
-        if (paddle.getElement().getY() != paddle.getElement().getY() + paddle.getElement().getHeight()) {//wait for initilization of main activity
+        if (main.getPaddle().getElement().getY() != main.getPaddle().getElement().getY() + main.getPaddle().getElement().getHeight()) {//wait for initilization of main activity
             if(!stop) {
-                direction = changeDirections(direction);
-                paddleMovements(paddle.getElement());
+                //direction = changeDirections(direction);
+                paddleMovements(main.getPaddle().getElement());
             }
         }
         control.postDelayed(this, (long) 0.005);
@@ -43,27 +36,23 @@ public class PaddleThread implements Runnable {
     }
 
     public void paddleMovements(ImageView paddle) {
-        switch (direction) {//rebotes
-            case 0: //arriba izquierda
-                paddle.setY(paddle.getY() - this.paddle.getSpeed());
-                paddle.setX(paddle.getX() - this.paddle.getSpeed());
+        switch (direction) {
+            case 0: //arriba
+                main.getPaddle().getElement().setY(main.getPaddle().getElement().getY()+ main.getPaddle().getSpeed());
                 break;
-            case 1: //abajo izquierda
-                paddle.setY(paddle.getY() + this.paddle.getSpeed());
-                paddle.setX(paddle.getX() - this.paddle.getSpeed());
+            case 1: //abajo
+                main.getPaddle().getElement().setY(main.getPaddle().getElement().getY() - main.getPaddle().getSpeed());
                 break;
-            case 2://arriba derecha
-                paddle.setY(paddle.getY() - this.paddle.getSpeed());
-                paddle.setX(paddle.getX() + this.paddle.getSpeed());
+            case 2://derecha
+                main.getPaddle().getElement().setX(main.getPaddle().getElement().getX() + main.getPaddle().getSpeed());
                 break;
-            case 3: //abajo derecha
-                paddle.setY(paddle.getY() + this.paddle.getSpeed());
-                paddle.setX(paddle.getX() + this.paddle.getSpeed());
+            case 3: //izquierda
+                main.getPaddle().getElement().setX(main.getPaddle().getElement().getX() - main.getPaddle().getSpeed());
                 break;
         }
     }
 
-    public int changeDirections(int direction) {
+    /*public int changeDirections(int direction) {
 
         if (!detectBallCollisionPaddle(ball.getElement())) {
             if (((paddle.getElement().getY() + paddle.getSpeed()) <= 0) && (direction == 0)) {
@@ -130,16 +119,10 @@ public class PaddleThread implements Runnable {
         }
 
         return false;
-    }
+    }*/
 
 
-    public Paddle getPaddle() {
-        return paddle;
-    }
 
-    public void setPaddle(Paddle paddle) {
-        this.paddle = paddle;
-    }
 
     public boolean isChangeDirection() {
         return changeDirection;
@@ -149,12 +132,28 @@ public class PaddleThread implements Runnable {
         this.changeDirection = changeDirection;
     }
 
-    public RelativeLayout getBoard() {
-        return board;
+    public boolean isStop() {
+        return stop;
     }
 
-    public void setBoard(RelativeLayout board) {
-        this.board = board;
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
+    public MainActivity getMain() {
+        return main;
+    }
+
+    public void setMain(MainActivity main) {
+        this.main = main;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 
     public Handler getControl() {

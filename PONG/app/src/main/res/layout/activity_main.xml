@@ -21,35 +21,82 @@
         android:layout_alignParentStart="true">
 
         <ImageView
+            android:id="@+id/paddle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/ball"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/ball"
+            app:srcCompat="@drawable/paddle" />
+
+        <ImageView
             android:id="@+id/ball"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             app:srcCompat="@drawable/ball" />
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
+        <Button
+            android:id="@+id/btnLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:background="@android:color/transparent"
+            android:text="Button" />
 
-            <Button
-                android:id="@+id/btnUp"
-                android:layout_width="wrap_content"
-                android:layout_height="276dp"
-                android:background="@android:color/transparent" />
+        <Button
+            android:id="@+id/btnUp1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnLeft"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="17dp"
+            android:background="@android:color/transparent"
+            android:text="Button" />
 
-            <Button
-                android:id="@+id/btnDown"
-                android:layout_width="wrap_content"
-                android:layout_height="292dp"
-                android:layout_column="0"
-                android:layout_row="26"
-                android:background="@android:color/transparent" />
-        </GridLayout>
+        <Button
+            android:id="@+id/btnRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/btnLeft"
+            android:background="@android:color/transparent"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/btnUp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/btnUp1"
+            android:background="@android:color/transparent"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/btnDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/btnShot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnUp1"
+            android:layout_alignEnd="@+id/btnDown"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/btnDown"
+            android:background="@android:color/transparent"
+            android:text="Button" />
 
     </RelativeLayout>
 

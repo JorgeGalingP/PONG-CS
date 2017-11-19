@@ -26,7 +26,6 @@ public class PaddleThread implements Runnable {
 
     @Override
     public void run() {
-        paddle = main.getPaddle();
         height = main.getBoard().getHeight();
         width = main.getBoard().getWidth();
         direction = changeDirections(direction);
