@@ -1,4 +1,4 @@
-package com.example.jorge.myapplication.Elements;
+package com.example.jorge.pong.Elements;
 
 import android.widget.ImageView;
 
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 public class Paddle extends Element {
     public Paddle(ImageView element) {
         super(element);
-        this.setSpeed(5);
+        this.setSpeed(10);
     }
 
 

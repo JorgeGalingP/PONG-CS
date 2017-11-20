@@ -1,4 +1,4 @@
-package com.example.jorge.myapplication.Elements;
+package com.example.jorge.pong.Elements;
 
 import android.widget.ImageView;
 
