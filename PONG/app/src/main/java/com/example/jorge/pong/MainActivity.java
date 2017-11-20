@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.jorge.pong.Elements.Ball;
 import com.example.jorge.pong.Elements.Paddle;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Paddle paddle;
     private Ball ball;
     private PaddleThread paddleThread;
+    private RelativeLayout board;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        board = (RelativeLayout)findViewById(R.id.board);
         ballImage = (ImageView) findViewById(R.id.ball);
         paddleImage = (ImageView) findViewById(R.id.paddle);
 
@@ -116,6 +119,22 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageView getPaddleImage() {
         return paddleImage;
+    }
+
+    public PaddleThread getPaddleThread() {
+        return paddleThread;
+    }
+
+    public void setPaddleThread(PaddleThread paddleThread) {
+        this.paddleThread = paddleThread;
+    }
+
+    public RelativeLayout getBoard() {
+        return board;
+    }
+
+    public void setBoard(RelativeLayout board) {
+        this.board = board;
     }
 
     public void setPaddleImage(ImageView paddleImage) {
