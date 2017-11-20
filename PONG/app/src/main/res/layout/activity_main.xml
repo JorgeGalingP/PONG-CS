@@ -67,6 +67,7 @@
             android:layout_toRightOf="@+id/btnLeft"
             android:layout_toStartOf="@+id/btnRight"
             android:background="@android:color/transparent"
+            android:onClick="shot"
             android:text="SHOT" />
 
         <Button

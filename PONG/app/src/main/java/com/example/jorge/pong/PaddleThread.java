@@ -13,6 +13,7 @@ public class PaddleThread implements Runnable {
     private MainActivity main;
     private int direction = -1;
     private Handler control;
+    public boolean stop;
 
     public PaddleThread (MainActivity main){
         this.main = main;
@@ -23,7 +24,7 @@ public class PaddleThread implements Runnable {
     @Override
     public void run() {
         if(main.getPaddle().getElement().getWidth()!= 0) {
-            paddleCollision(main.getPaddle().getElement(), main.getBall().getElement(), main.getBoard());
+            paddleCollisionWalls(main.getPaddle().getElement(), main.getBoard());
             paddleMovements(main.getPaddle().getElement());
         }
         control.postDelayed(this,(long)0.0005);
@@ -46,8 +47,7 @@ public class PaddleThread implements Runnable {
                 break;
         }
     }
-
-    public void paddleCollision(ImageView paddle, ImageView ball, RelativeLayout board){
+    public void paddleCollisionWalls(ImageView paddle, RelativeLayout board){
         if(paddle.getX()+paddle.getWidth() <= board.getX()){
             paddle.setX(board.getWidth());
         }else if(paddle.getX() >= board.getWidth()) {

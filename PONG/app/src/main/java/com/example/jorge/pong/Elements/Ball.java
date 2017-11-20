@@ -1,13 +1,8 @@
 package com.example.jorge.pong.Elements;
 
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
+
 import android.widget.ImageView;
 
-import com.example.jorge.pong.MainActivity;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Jorge on 29/10/2017.
@@ -15,17 +10,18 @@ import static java.security.AccessController.getContext;
 
 public class Ball extends Element {
 
-    private int lives = 3;
+    public boolean square = false;
 
     public Ball(ImageView element) {
         super(element);
+        setSpeed(10);
     }
 
-    public int getLives() {
-        return lives;
+    public boolean isSquare() {
+        return square;
     }
 
-    public void damage() {
-        this.lives -= 1;
+    public void setSquare() {
+        this.square = true;
     }
 }

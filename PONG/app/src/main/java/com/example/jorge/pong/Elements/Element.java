@@ -7,19 +7,21 @@ import android.widget.ImageView;
  */
 
 public abstract class Element {
-    private  int speed = 10;
+    private int speed = 10;
     private ImageView element;
 
-    public Element (ImageView element){
+    public Element(ImageView element) {
         this.element = element;
     }
 
     public int getSpeed() {
         return speed;
     }
-    public void setSpeed(int speed){
+
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
+
     public ImageView getElement() {
         return element;
     }

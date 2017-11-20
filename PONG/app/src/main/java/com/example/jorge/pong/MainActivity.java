@@ -10,21 +10,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.jorge.pong.Elements.Ball;
+import com.example.jorge.pong.Elements.Bullet;
 import com.example.jorge.pong.Elements.Paddle;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView paddleImage, ballImage;
     private Paddle paddle;
+    private Bullet bullet;
     private Ball ball;
     private PaddleThread paddleThread;
     private RelativeLayout board;
+    private Button btnShot;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnShot = (Button)findViewById(R.id.btnShot);
 
         board = (RelativeLayout)findViewById(R.id.board);
         ballImage = (ImageView) findViewById(R.id.ball);
@@ -102,19 +106,42 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        final Button btnShot = (Button) findViewById(R.id.btnShot);
-        btnShot.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if ((event.getAction() == MotionEvent.ACTION_DOWN)) {
-                    System.out.println("DISPARO");
-                }
-                if (event.getAction() == MotionEvent.ACTION_UP) {
+    }
 
-                }
-                return true;
-            }
-        });
+    public void shot(View v){
+        System.out.println("DISPARO");
+        ImageView bulletImage = new ImageView(getBaseContext());
+        bulletImage.setImageDrawable(getResources().getDrawable(R.drawable.bullet));
+        bulletImage.setY(paddle.getElement().getY()+bulletImage.getHeight());
+        bulletImage.setX(paddle.getElement().getX() + (paddle.getElement().getWidth() / 2)-10);
+        board.addView(bulletImage);
+
+        bullet = new Bullet(bulletImage);
+        BulletThread bulletThread = new BulletThread(this,bullet);
+        bulletThread.run();
+        btnShot.setEnabled(false);
+    }
+
+    public void enabledShot(){
+        System.out.println("Habilitar disparo");
+        bullet = null;
+        btnShot.setEnabled(true);
+    }
+
+    public Button getBtnShot() {
+        return btnShot;
+    }
+
+    public void setBtnShot(Button btnShot) {
+        this.btnShot = btnShot;
+    }
+
+    public Bullet getBullet() {
+        return bullet;
+    }
+
+    public void setBullet(Bullet bullet) {
+        this.bullet = bullet;
     }
 
     public ImageView getPaddleImage() {
