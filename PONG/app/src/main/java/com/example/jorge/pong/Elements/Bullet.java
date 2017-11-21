@@ -9,6 +9,6 @@ import android.widget.ImageView;
 public class Bullet extends Element {
     public Bullet(ImageView element) {
         super(element);
-        this.setSpeed(15);
+        this.setSpeed(30);
     }
 }

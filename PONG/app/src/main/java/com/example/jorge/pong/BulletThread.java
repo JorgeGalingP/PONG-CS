@@ -29,7 +29,7 @@ public class BulletThread implements Runnable {
             bulletCollisionWalls(bullet.getElement(), main.getBoard());
             if (!stop) {
                 bulletMovements(bullet.getElement(),bullet.getSpeed());
-                control.postDelayed(this,(long)0.0005);
+                control.postDelayed(this,(long)10);
             }
         }
     }

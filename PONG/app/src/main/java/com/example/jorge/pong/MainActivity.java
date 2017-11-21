@@ -13,10 +13,13 @@ import com.example.jorge.pong.Elements.Ball;
 import com.example.jorge.pong.Elements.Bullet;
 import com.example.jorge.pong.Elements.Paddle;
 
+import java.lang.reflect.Array;
+
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView paddleImage, ballImage;
+    private ImageView paddleImage, ballImage,shot1, shot2,shot3, shot4,shot5;
     private Paddle paddle;
+    private ImageView bullets[];
     private Bullet bullet;
     private Ball ball;
     private PaddleThread paddleThread;
@@ -33,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
         board = (RelativeLayout)findViewById(R.id.board);
         ballImage = (ImageView) findViewById(R.id.ball);
         paddleImage = (ImageView) findViewById(R.id.paddle);
-
+        shot1 = (ImageView)findViewById(R.id.shot1);
+        shot2 = (ImageView)findViewById(R.id.shot2);
+        shot3 = (ImageView)findViewById(R.id.shot3);
+        shot4 = (ImageView)findViewById(R.id.shot4);
+        shot5 = (ImageView)findViewById(R.id.shot5);
+        bullets = new ImageView[]{shot1, shot2, shot3, shot4, shot5};
         ball = new Ball(ballImage);
         paddle = new Paddle(paddleImage);
 
@@ -109,17 +117,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void shot(View v){
-        System.out.println("DISPARO");
-        ImageView bulletImage = new ImageView(getBaseContext());
-        bulletImage.setImageDrawable(getResources().getDrawable(R.drawable.bullet));
-        bulletImage.setY(paddle.getElement().getY()+bulletImage.getHeight());
-        bulletImage.setX(paddle.getElement().getX() + (paddle.getElement().getWidth() / 2)-10);
-        board.addView(bulletImage);
+        if(paddle.getBullets()>0) {
+            System.out.println("DISPARO");
+            ImageView bulletImage = new ImageView(getBaseContext());
+            bulletImage.setImageDrawable(getResources().getDrawable(R.drawable.bullet));
+            bulletImage.setY(paddle.getElement().getY() + bulletImage.getHeight());
+            bulletImage.setX(paddle.getElement().getX() + (paddle.getElement().getWidth() / 2) - 10);
+            board.addView(bulletImage);
 
-        bullet = new Bullet(bulletImage);
-        BulletThread bulletThread = new BulletThread(this,bullet);
-        bulletThread.run();
-        btnShot.setEnabled(false);
+            bullet = new Bullet(bulletImage);
+            BulletThread bulletThread = new BulletThread(this, bullet);
+            bulletThread.run();
+            bullets[paddle.getBullets()-1].setVisibility(View.INVISIBLE);
+            paddle.shotBullets();
+            btnShot.setEnabled(false);
+        }
     }
 
     public void enabledShot(){
