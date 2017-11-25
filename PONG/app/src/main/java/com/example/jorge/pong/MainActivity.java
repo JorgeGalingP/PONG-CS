@@ -1,6 +1,7 @@
 package com.example.jorge.pong;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -138,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Habilitar disparo");
         bullet = null;
         btnShot.setEnabled(true);
+    }
+
+    public void gameOver(){
+        System.out.println("ENtro en game over");
+        Intent intent = new Intent(this,GameOverActivity.class);
+        startActivity(intent);
     }
 
     public Button getBtnShot() {

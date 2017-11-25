@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GameOverActivity" android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".game_over" android:theme="@style/AppTheme.CustomTheme"></activity>
     </application>
 
 </manifest>

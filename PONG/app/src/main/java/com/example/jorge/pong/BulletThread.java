@@ -44,7 +44,11 @@ public class BulletThread implements Runnable {
             stop = true;
             control.removeCallbacks(this);
             bullet.setVisibility(View.INVISIBLE);
-            main.enabledShot();
+            if(main.getPaddle().getBullets()>0) {
+                main.enabledShot();
+            }else{
+                main.gameOver();
+            }
         }
     }
 
