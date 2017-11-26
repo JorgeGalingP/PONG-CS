@@ -25,11 +25,12 @@ public class BulletThread implements Runnable {
 
     @Override
     public void run() {
-        if (main.getPaddle().getElement().getWidth()!=0) {
+        if (main.getPaddle().getElement().getWidth() != 0) {
+            bulletCollisionBall(bullet.getElement(), bullet.getSpeed(), main.getBall().getElement());
             bulletCollisionWalls(bullet.getElement(), main.getBoard());
             if (!stop) {
-                bulletMovements(bullet.getElement(),bullet.getSpeed());
-                control.postDelayed(this,(long)10);
+                bulletMovements(bullet.getElement(), bullet.getSpeed());
+                control.postDelayed(this, (long) 10);
             }
         }
     }
@@ -38,17 +39,36 @@ public class BulletThread implements Runnable {
         bullet.setY(bullet.getY() - speed);
     }
 
-    public void  bulletCollisionWalls(ImageView bullet, RelativeLayout board) {
+    public void bulletCollisionWalls(ImageView bullet, RelativeLayout board) {
         if (bullet.getY() + bullet.getHeight() <= main.getBoard().getY()) {
             System.out.println("Colision");
             stop = true;
             control.removeCallbacks(this);
             bullet.setVisibility(View.INVISIBLE);
-            if(main.getPaddle().getBullets()>0) {
+            if (main.getPaddle().getBullets() > 0) {
                 main.enabledShot();
-            }else{
+            } else {
                 main.gameOver();
             }
+        }
+    }
+
+    public void bulletCollisionBall(ImageView bullet, int speed, ImageView ball) {
+        int initialPosition = (int) bullet.getY();
+        int finalPosition = (int) bullet.getY() - speed;
+        int i = initialPosition;
+        while (i >= finalPosition && !stop) {
+            if (i == ball.getY() + ball.getHeight() &&
+                    ((bullet.getX()>= ball.getX() || bullet.getX() + bullet.getWidth() >= ball.getX()) && bullet.getX() <= ball.getX() + ball.getWidth())) {
+                System.out.println("CHOQUE CON LA BOLA");
+                bullet.setY(i);
+                stop = true;
+                control.removeCallbacks(this);
+                bullet.setVisibility(View.INVISIBLE);
+                ball.setVisibility(View.INVISIBLE);
+                main.winGame();
+            }
+            i--;
         }
     }
 

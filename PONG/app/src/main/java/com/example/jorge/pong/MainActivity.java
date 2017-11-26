@@ -13,13 +13,10 @@ import android.widget.RelativeLayout;
 import com.example.jorge.pong.Elements.Ball;
 import com.example.jorge.pong.Elements.Bullet;
 import com.example.jorge.pong.Elements.Paddle;
-import com.jakewharton.processphoenix.ProcessPhoenix;
-
-import java.lang.reflect.Array;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView paddleImage, ballImage,shot1, shot2,shot3, shot4,shot5;
+    private ImageView paddleImage, ballImage, shot1, shot2, shot3, shot4, shot5;
     private Paddle paddle;
     private ImageView bullets[];
     private Bullet bullet;
@@ -33,16 +30,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnShot = (Button)findViewById(R.id.btnShot);
 
-        board = (RelativeLayout)findViewById(R.id.board);
+        btnShot = (Button) findViewById(R.id.btnShot);
+
+        board = (RelativeLayout) findViewById(R.id.board);
+
         ballImage = (ImageView) findViewById(R.id.ball);
         paddleImage = (ImageView) findViewById(R.id.paddle);
-        shot1 = (ImageView)findViewById(R.id.shot1);
-        shot2 = (ImageView)findViewById(R.id.shot2);
-        shot3 = (ImageView)findViewById(R.id.shot3);
-        shot4 = (ImageView)findViewById(R.id.shot4);
-        shot5 = (ImageView)findViewById(R.id.shot5);
+        shot1 = (ImageView) findViewById(R.id.shot1);
+        shot2 = (ImageView) findViewById(R.id.shot2);
+        shot3 = (ImageView) findViewById(R.id.shot3);
+        shot4 = (ImageView) findViewById(R.id.shot4);
+        shot5 = (ImageView) findViewById(R.id.shot5);
+
         bullets = new ImageView[]{shot1, shot2, shot3, shot4, shot5};
         ball = new Ball(ballImage);
         paddle = new Paddle(paddleImage);
@@ -121,15 +121,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 999 && resultCode == RESULT_OK){
+        if (requestCode == 999 && resultCode == RESULT_OK) {
             //ProcessPhoenix.triggerRebirth(getApplicationContext());
             finish();
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 
-    public void shot(View v){
-        if(paddle.getBullets()>0) {
+    public void shot(View v) {
+        if (paddle.getBullets() > 0) {
             System.out.println("DISPARO");
 
             ImageView bulletImage = new ImageView(getBaseContext());
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             bulletImage.setX(paddle.getElement().getX() + (paddle.getElement().getWidth() / 2) - 10);
             board.addView(bulletImage);
 
-            bullets[paddle.getBullets()-1].setVisibility(View.INVISIBLE);
+            bullets[paddle.getBullets() - 1].setVisibility(View.INVISIBLE);
             paddle.shotBullets();
             btnShot.setEnabled(false);
 
@@ -148,19 +148,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void enabledShot(){
+    public void enabledShot() {
         System.out.println("Habilitar disparo");
         bullet = null;
         btnShot.setEnabled(true);
     }
 
-    public void gameOver(){
+    public void gameOver() {
         System.out.println("Entro en game over");
         //FALTA parar los movimientos de la bola
         paddleThread.stop();
         paddleThread.getControl().removeCallbacks(paddleThread);
-        Intent intent = new Intent(this,GameOverActivity.class);
-        startActivityForResult(intent,999);
+        Intent intent = new Intent(this, GameOverActivity.class);
+        startActivityForResult(intent, 999);
+    }
+
+    public void winGame() {
+        finish();
+        startActivity(new Intent(this,MainActivity.class));
     }
 
 
