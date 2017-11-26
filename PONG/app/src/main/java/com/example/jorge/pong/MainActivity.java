@@ -131,18 +131,20 @@ public class MainActivity extends AppCompatActivity {
     public void shot(View v){
         if(paddle.getBullets()>0) {
             System.out.println("DISPARO");
+
             ImageView bulletImage = new ImageView(getBaseContext());
             bulletImage.setImageDrawable(getResources().getDrawable(R.drawable.bullet));
             bulletImage.setY(paddle.getElement().getY() + bulletImage.getHeight());
             bulletImage.setX(paddle.getElement().getX() + (paddle.getElement().getWidth() / 2) - 10);
             board.addView(bulletImage);
 
-            bullet = new Bullet(bulletImage);
-            BulletThread bulletThread = new BulletThread(this, bullet);
-            bulletThread.run();
             bullets[paddle.getBullets()-1].setVisibility(View.INVISIBLE);
             paddle.shotBullets();
             btnShot.setEnabled(false);
+
+            bullet = new Bullet(bulletImage);
+            BulletThread bulletThread = new BulletThread(this, bullet);
+            bulletThread.run();
         }
     }
 
