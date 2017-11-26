@@ -17,7 +17,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameOverActivity" android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".GameOverActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".VictoryActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
     </application>
 
 </manifest>

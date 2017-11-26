@@ -1,4 +1,4 @@
-package com.example.jorge.pong;
+package com.example.jorge.pong.Threads;
 
 import android.os.Handler;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.jorge.pong.Elements.Bullet;
+import com.example.jorge.pong.MainActivity;
 
 /**
  * Created by Jorge on 20/11/2017.

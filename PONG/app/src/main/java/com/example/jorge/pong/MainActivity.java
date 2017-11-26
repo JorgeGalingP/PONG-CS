@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import com.example.jorge.pong.Elements.Ball;
 import com.example.jorge.pong.Elements.Bullet;
 import com.example.jorge.pong.Elements.Paddle;
+import com.example.jorge.pong.Threads.BulletThread;
+import com.example.jorge.pong.Threads.PaddleThread;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -121,10 +123,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        System.out.println(requestCode+""+resultCode);
         if (requestCode == 999 && resultCode == RESULT_OK) {
             //ProcessPhoenix.triggerRebirth(getApplicationContext());
             finish();
             startActivity(new Intent(this, MainActivity.class));
+        }
+        System.out.println(requestCode+""+resultCode);
+        if(requestCode == 888 && resultCode == RESULT_OK){
+            finish();
+            startActivity(new Intent(this,MainActivity.class));
         }
     }
 
@@ -164,8 +173,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void winGame() {
-        finish();
-        startActivity(new Intent(this,MainActivity.class));
+        System.out.println("Entro en win game");
+        paddleThread.stop();
+        paddleThread.getControl().removeCallbacks(paddleThread);
+        //FALTA `parar los movimientos de la bola
+        startActivityForResult(new Intent(this,VictoryActivity.class),888);
     }
 
 
