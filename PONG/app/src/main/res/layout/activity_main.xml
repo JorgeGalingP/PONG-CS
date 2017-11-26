@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jorge.pong.MainActivity">
+    tools:context="com.example.jorge.pong.Activities.MainActivity">
     <RelativeLayout
         android:id="@+id/board"
         android:layout_width="match_parent"
@@ -100,8 +100,9 @@
             android:id="@+id/ball"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/shot5"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
             app:srcCompat="@drawable/ball" />
 
         <ImageView

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,9 +18,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameOverActivity"
+            android:name=".Activities.GameOverActivity"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".VictoryActivity"
+        <activity android:name=".Activities.VictoryActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
     </application>

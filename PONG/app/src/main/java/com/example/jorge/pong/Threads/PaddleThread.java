@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.example.jorge.pong.MainActivity;
+import com.example.jorge.pong.Activities.MainActivity;
 
 /**
  * Created by Jorge on 20/11/2017.

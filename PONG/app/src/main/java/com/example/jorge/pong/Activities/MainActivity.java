@@ -1,4 +1,4 @@
-package com.example.jorge.pong;
+package com.example.jorge.pong.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import com.example.jorge.pong.Elements.Ball;
 import com.example.jorge.pong.Elements.Bullet;
 import com.example.jorge.pong.Elements.Paddle;
+import com.example.jorge.pong.R;
+import com.example.jorge.pong.Threads.BallThread;
 import com.example.jorge.pong.Threads.BulletThread;
 import com.example.jorge.pong.Threads.PaddleThread;
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Bullet bullet;
     private Ball ball;
     private PaddleThread paddleThread;
+    private BallThread ballThread;
     private RelativeLayout board;
     private Button btnShot;
 
@@ -51,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         paddleThread = new PaddleThread(this);
         paddleThread.run();
+
+        ballThread = new BallThread(this);
+        ballThread.run();
 
 
         final Button btnUp1 = (Button) findViewById(R.id.btnUp1);
@@ -165,21 +171,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void gameOver() {
         System.out.println("Entro en game over");
-        //FALTA parar los movimientos de la bola
-        paddleThread.stop();
-        paddleThread.getControl().removeCallbacks(paddleThread);
+        finishGame();
         Intent intent = new Intent(this, GameOverActivity.class);
         startActivityForResult(intent, 999);
     }
 
     public void winGame() {
         System.out.println("Entro en win game");
-        paddleThread.stop();
-        paddleThread.getControl().removeCallbacks(paddleThread);
-        //FALTA `parar los movimientos de la bola
+        finishGame();
         startActivityForResult(new Intent(this,VictoryActivity.class),888);
     }
 
+    public void finishGame(){
+        ballThread.stop();
+        ballThread.getControl().removeCallbacks(ballThread);
+
+        paddleThread.stop();
+        paddleThread.getControl().removeCallbacks(paddleThread);
+    }
 
     public Button getBtnShot() {
         return btnShot;

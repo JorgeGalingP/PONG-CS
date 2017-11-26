@@ -1,23 +1,28 @@
-package com.example.jorge.pong;
+package com.example.jorge.pong.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
-public class VictoryActivity extends Activity {
+import com.example.jorge.pong.R;
 
-    Button btnPlayAgain;
+/**
+ * Created by Jorge on 25/11/2017.
+ */
+
+public class GameOverActivity extends Activity {
+
+    private Button btnRetry;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_victory);
+        setContentView(R.layout.activity_game_over);
 
-        btnPlayAgain = (Button)findViewById(R.id.btnPlayAgain);
-
+        btnRetry = (Button) findViewById(R.id.btnRetry);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -27,7 +32,8 @@ public class VictoryActivity extends Activity {
         getWindow().setLayout((int) (width * 0.8), (int) (height * 0.8));
     }
 
-    public void playAgain(View v){
+
+    public void retry(View v) {
         Intent intent = new Intent();
         setResult(RESULT_OK,intent);
         finish();
