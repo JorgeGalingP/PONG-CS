@@ -62,8 +62,19 @@ public class PaddleThread implements Runnable {
         }
     }
 
+    public void stop(){
+        stop = true;
+    }
     public MainActivity getMain() {
         return main;
+    }
+
+    public Handler getControl() {
+        return control;
+    }
+
+    public void setControl(Handler control) {
+        this.control = control;
     }
 
     public void setMain(MainActivity main) {
