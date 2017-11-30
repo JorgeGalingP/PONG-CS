@@ -13,7 +13,7 @@ import com.example.jorge.pong.Activities.MainActivity;
 
 public class BallThread implements Runnable {
 
-    private int movement, direction = 0;
+    private int movement, direction;
     private boolean stop = false;
     private Handler control;
     private MainActivity main;
@@ -37,16 +37,69 @@ public class BallThread implements Runnable {
             case 0://left to right
                 leftToRightMovement(main.getBall().getElement(), main.getBall().getSpeed(), main.getBoard());
                 break;
+            case 1:
+                crossMovements(main.getBall().getElement(), main.getBall().getSpeed(), main.getBoard());
+                break;
         }
     }
 
-    public void ballCollisionWalls() {
-
+    public void ballCollisionWalls(ImageView ball, RelativeLayout board, int speed) {
     }
 
     public void stop() {
         stop = true;
         countDown.cancel();
+    }
+
+    public void crossMovements(ImageView ball, int speed, RelativeLayout board) {
+        switch (direction) {
+            case 0:
+                if (ball.getX() + speed >= board.getWidth()) {
+                    direction = 3;
+                    break;
+                } else if (ball.getY() - speed <= board.getY()) {
+                    direction = 2;
+                    break;
+                }
+                ball.setX(ball.getX() + speed);
+                ball.setY(ball.getY() - speed);
+                break;
+            case 1:
+                if (ball.getX() - speed <= board.getX()) {
+                    direction = 2;
+                    break;
+                } else if (ball.getY() + speed >= board.getHeight()) {
+                    direction = 3;
+                    break;
+                }
+                ball.setX(ball.getX() - speed);
+                ball.setY(ball.getY() + speed);
+                break;
+            case 2:
+                if (ball.getX() + speed >= board.getWidth()) {
+                    direction = 1;
+                    break;
+                } else if (ball.getY() + speed >= board.getHeight()) {
+                    direction = 0;
+                    break;
+                }
+                ball.setX(ball.getX() + speed);
+                ball.setY(ball.getY() + speed);
+                break;
+            case 3:
+                if (ball.getX() - speed <= board.getX()) {
+                    direction = 0;
+                    break;
+                }else if(ball.getY()-speed <= board.getY()){
+                    direction = 1;
+                    break;
+                }
+                ball.setX(ball.getX() - speed);
+                ball.setY(ball.getY() - speed);
+                break;
+
+
+        }
     }
 
     public void leftToRightMovement(ImageView ball, int speed, RelativeLayout board) {
@@ -78,8 +131,12 @@ public class BallThread implements Runnable {
 
         @Override
         public void onFinish() {
-            int move = (int) (Math.random() * (4));
-            System.out.println(move);//pruebas
+            int move = (int) (Math.random() * (2));
+            if(move!= movement){
+                direction = 0;
+            }
+            movement = move;
+            System.out.println(movement);//pruebas
             countDown.start();
         }
     }.start();
