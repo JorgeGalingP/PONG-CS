@@ -15,8 +15,9 @@ import com.example.jorge.pong.R;
 
 public class BallThread implements Runnable {
 
-    private int movement, direction;
-    private boolean stop = false;
+    private int movement;
+    private int direction;
+    private boolean stopBall = false;
     private Handler control;
     private MainActivity main;
 
@@ -28,16 +29,16 @@ public class BallThread implements Runnable {
 
     @Override
     public void run() {
-        if (main.getBall().getElement().getWidth() != 0 && !stop) {
-            ballMovements();
+        if (main.getBall().getElement().getWidth() != 0 && !stopBall) {
+            movements();
         }
         control.postDelayed(this, (long) 10);
     }
 
-    public void ballMovements() {
+    public void movements() {
         switch (movement) {
             case 0://left to right
-                ballCollisionWalls(main.getBall().getElement(), main.getBall().getSpeed(), main.getBoard(), main);
+                collisionWalls(main.getBall().getElement(), main.getBall().getSpeed(), main.getBoard(), main);
                 leftToRightMovement(main.getBall().getElement(), main.getBall().getSpeed(), main.getBoard());
                 break;
             case 1:
@@ -46,7 +47,7 @@ public class BallThread implements Runnable {
         }
     }
 
-    public void ballCollisionWalls(ImageView ball, int speed, RelativeLayout board, MainActivity main) {
+    public void collisionWalls(ImageView ball, int speed, RelativeLayout board, MainActivity main) {
         boolean collison = false;
         if (ball.getX() + ball.getWidth() <= board.getX()) {
             ball.setX(board.getWidth());
@@ -68,7 +69,7 @@ public class BallThread implements Runnable {
     }
 
     public void stop() {
-        stop = true;
+        stopBall = true;
         countDown.cancel();
     }
 
@@ -124,24 +125,7 @@ public class BallThread implements Runnable {
     }
 
     public void leftToRightMovement(ImageView ball, int speed, RelativeLayout board) {
-        switch (direction) {
-            case 0:
-                /*if (ball.getX() - speed <= (board.getX()+board.getWidth())/2) {
-                    ball.setX((board.getX()+board.getWidth())/2);
-                    direction = 1;
-                    break;
-                }*/
-                ball.setX(ball.getX() - speed);
-                break;
-            case 1:
-                if (ball.getX() + ball.getWidth() + speed >= (board.getX() + board.getWidth()) / 2) {
-                    ball.setX((board.getX() + board.getWidth()) / 2);
-                    direction = 0;
-                    break;
-                }
-                ball.setX(ball.getX() + speed);
-                break;
-        }
+        ball.setX(ball.getX() - speed);
     }
 
     CountDownTimer countDown = new CountDownTimer(10000, 10000) {
@@ -171,11 +155,11 @@ public class BallThread implements Runnable {
     }
 
     public boolean isStop() {
-        return stop;
+        return stopBall;
     }
 
     public void setStop(boolean strop) {
-        this.stop = strop;
+        this.stopBall = strop;
     }
 
     public Handler getControl() {

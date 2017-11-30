@@ -15,7 +15,7 @@ import com.example.jorge.pong.Activities.MainActivity;
 public class BulletThread implements Runnable {
     private MainActivity main;
     private Bullet bullet;
-    private boolean stop = false;
+    private boolean stopBullet = false;
     private Handler control;
 
     public BulletThread(MainActivity main, Bullet bullet) {
@@ -27,23 +27,23 @@ public class BulletThread implements Runnable {
     @Override
     public void run() {
         if (main.getPaddle().getElement().getWidth() != 0) {
-            bulletCollisionBall(bullet.getElement(), bullet.getSpeed(), main.getBall().getElement());
-            bulletCollisionWalls(bullet.getElement(), main.getBoard());
-            if (!stop) {
-                bulletMovements(bullet.getElement(), bullet.getSpeed());
+            collisionBall(bullet.getElement(), bullet.getSpeed(), main.getBall().getElement());
+            collisionWalls(bullet.getElement(), main.getBoard());
+            if (!stopBullet) {
+                movements(bullet.getElement(), bullet.getSpeed());
                 control.postDelayed(this, (long) 10);
             }
         }
     }
 
-    public void bulletMovements(ImageView bullet, int speed) {
+    public void movements(ImageView bullet, int speed) {
         bullet.setY(bullet.getY() - speed);
     }
 
-    public void bulletCollisionWalls(ImageView bullet, RelativeLayout board) {
+    public void collisionWalls(ImageView bullet, RelativeLayout board) {
         if (bullet.getY() + bullet.getHeight() <= main.getBoard().getY()) {
             System.out.println("Colision");
-            stop = true;
+            stopBullet = true;
             control.removeCallbacks(this);
             bullet.setVisibility(View.INVISIBLE);
             if (main.getPaddle().getBullets() > 0) {
@@ -54,16 +54,17 @@ public class BulletThread implements Runnable {
         }
     }
 
-    public void bulletCollisionBall(ImageView bullet, int speed, ImageView ball) {
+    public void collisionBall(ImageView bullet, int speed, ImageView ball) {
         int initialPosition = (int) bullet.getY();
         int finalPosition = (int) bullet.getY() - speed;
         int i = initialPosition;
-        while (i >= finalPosition && !stop) {
+        while (i >= finalPosition && !stopBullet) {
             if (i == ball.getY() + ball.getHeight() &&
-                    ((bullet.getX()>= ball.getX() || bullet.getX() + bullet.getWidth() >= ball.getX()) && bullet.getX() <= ball.getX() + ball.getWidth())) {
+                    ((bullet.getX()>= ball.getX() || bullet.getX() + bullet.getWidth() >= ball.getX())
+                            && bullet.getX() <= ball.getX() + ball.getWidth())) {
                 System.out.println("CHOQUE CON LA BOLA");
                 bullet.setY(i);
-                stop = true;
+                stopBullet = true;
                 control.removeCallbacks(this);
                 bullet.setVisibility(View.INVISIBLE);
                 ball.setVisibility(View.INVISIBLE);

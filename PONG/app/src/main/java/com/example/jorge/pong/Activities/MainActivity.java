@@ -3,7 +3,6 @@ package com.example.jorge.pong.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,9 +20,15 @@ import com.example.jorge.pong.Threads.PaddleThread;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView paddleImage, ballImage, shot1, shot2, shot3, shot4, shot5;
+    private ImageView paddleImage;
+    private ImageView ballImage;
+    private ImageView shot1;
+    private ImageView shot2;
+    private ImageView shot3;
+    private ImageView shot4;
+    private ImageView shot5;
     private Paddle paddle;
-    private ImageView bullets[];
+    private ImageView [] bullets;
     private Bullet bullet;
     private Ball ball;
     private PaddleThread paddleThread;
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         shot4 = (ImageView) findViewById(R.id.shot4);
         shot5 = (ImageView) findViewById(R.id.shot5);
 
-        //ballImage.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.square_ball));
+
         bullets = new ImageView[]{shot1, shot2, shot3, shot4, shot5};
         ball = new Ball(ballImage);
         paddle = new Paddle(paddleImage);
@@ -134,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println(requestCode+""+resultCode);
         if (requestCode == 999 && resultCode == RESULT_OK) {
-            //ProcessPhoenix.triggerRebirth(getApplicationContext());
             finish();
             startActivity(new Intent(this, MainActivity.class));
         }

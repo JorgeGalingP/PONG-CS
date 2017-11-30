@@ -10,7 +10,7 @@ public abstract class Element {
     private int speed = 10;
     private ImageView element;
 
-    public Element(ImageView element) {
+    protected Element(ImageView element) {
         this.element = element;
     }
 
