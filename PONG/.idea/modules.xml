@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PONG.iml" filepath="$PROJECT_DIR$/PONG.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/process-phoenix/process-phoenix.iml" filepath="$PROJECT_DIR$/libs/process-phoenix/process-phoenix.iml" />
     </modules>
   </component>
 </project>
