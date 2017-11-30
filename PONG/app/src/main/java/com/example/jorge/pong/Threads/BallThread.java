@@ -2,10 +2,12 @@ package com.example.jorge.pong.Threads;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.jorge.pong.Activities.MainActivity;
+import com.example.jorge.pong.R;
 
 /**
  * Created by Jorge on 26/11/2017.
@@ -35,6 +37,7 @@ public class BallThread implements Runnable {
     public void ballMovements() {
         switch (movement) {
             case 0://left to right
+                ballCollisionWalls(main.getBall().getElement(), main.getBall().getSpeed(), main.getBoard(), main);
                 leftToRightMovement(main.getBall().getElement(), main.getBall().getSpeed(), main.getBoard());
                 break;
             case 1:
@@ -43,7 +46,25 @@ public class BallThread implements Runnable {
         }
     }
 
-    public void ballCollisionWalls(ImageView ball, RelativeLayout board, int speed) {
+    public void ballCollisionWalls(ImageView ball, int speed, RelativeLayout board, MainActivity main) {
+        boolean collison = false;
+        if (ball.getX() + ball.getWidth() <= board.getX()) {
+            ball.setX(board.getWidth());
+            collison = true;
+        } else if (ball.getX() >= board.getWidth()) {
+            ball.setX(board.getX() - ball.getWidth());
+            collison = true;
+        }
+        if (ball.getY() + ball.getHeight() <= board.getY()) {
+            ball.setY(board.getHeight());
+            collison = true;
+        } else if (ball.getY() >= board.getHeight()) {
+            ball.setY(board.getY() - ball.getHeight());
+            collison = true;
+        }
+        if (collison) {
+            main.getBall().getElement().setImageDrawable(ContextCompat.getDrawable(main, R.drawable.square_ball));
+        }
     }
 
     public void stop() {
@@ -54,7 +75,7 @@ public class BallThread implements Runnable {
     public void crossMovements(ImageView ball, int speed, RelativeLayout board) {
         switch (direction) {
             case 0:
-                if (ball.getX() + speed >= board.getWidth()) {
+                if (ball.getX() + ball.getWidth() + speed >= board.getWidth()) {
                     direction = 3;
                     break;
                 } else if (ball.getY() - speed <= board.getY()) {
@@ -68,7 +89,7 @@ public class BallThread implements Runnable {
                 if (ball.getX() - speed <= board.getX()) {
                     direction = 2;
                     break;
-                } else if (ball.getY() + speed >= board.getHeight()) {
+                } else if (ball.getY() + ball.getHeight() + speed >= board.getHeight()) {
                     direction = 3;
                     break;
                 }
@@ -76,10 +97,10 @@ public class BallThread implements Runnable {
                 ball.setY(ball.getY() + speed);
                 break;
             case 2:
-                if (ball.getX() + speed >= board.getWidth()) {
+                if (ball.getX() + ball.getWidth() + speed >= board.getWidth()) {
                     direction = 1;
                     break;
-                } else if (ball.getY() + speed >= board.getHeight()) {
+                } else if (ball.getY() + ball.getHeight() + speed >= board.getHeight()) {
                     direction = 0;
                     break;
                 }
@@ -90,7 +111,7 @@ public class BallThread implements Runnable {
                 if (ball.getX() - speed <= board.getX()) {
                     direction = 0;
                     break;
-                }else if(ball.getY()-speed <= board.getY()){
+                } else if (ball.getY() - speed <= board.getY()) {
                     direction = 1;
                     break;
                 }
@@ -105,16 +126,16 @@ public class BallThread implements Runnable {
     public void leftToRightMovement(ImageView ball, int speed, RelativeLayout board) {
         switch (direction) {
             case 0:
-                if (ball.getX() - speed <= board.getX() + 80) {
-                    ball.setX(board.getX() + 50);
+                /*if (ball.getX() - speed <= (board.getX()+board.getWidth())/2) {
+                    ball.setX((board.getX()+board.getWidth())/2);
                     direction = 1;
                     break;
-                }
+                }*/
                 ball.setX(ball.getX() - speed);
                 break;
             case 1:
-                if (ball.getX() + ball.getWidth() + speed >= board.getX() + board.getWidth() - 50) {
-                    ball.setX(board.getX() + board.getWidth() - 80);
+                if (ball.getX() + ball.getWidth() + speed >= (board.getX() + board.getWidth()) / 2) {
+                    ball.setX((board.getX() + board.getWidth()) / 2);
                     direction = 0;
                     break;
                 }
@@ -132,7 +153,7 @@ public class BallThread implements Runnable {
         @Override
         public void onFinish() {
             int move = (int) (Math.random() * (2));
-            if(move!= movement){
+            if (move != movement) {
                 direction = 0;
             }
             movement = move;

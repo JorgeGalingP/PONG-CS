@@ -10,18 +10,9 @@ import android.widget.ImageView;
 
 public class Ball extends Element {
 
-    public boolean square = false;
 
     public Ball(ImageView element) {
         super(element);
         setSpeed(10);
-    }
-
-    public boolean isSquare() {
-        return square;
-    }
-
-    public void setSquare() {
-        this.square = true;
     }
 }

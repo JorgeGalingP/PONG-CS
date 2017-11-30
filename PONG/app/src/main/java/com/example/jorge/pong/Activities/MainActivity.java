@@ -3,6 +3,7 @@ package com.example.jorge.pong.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         shot4 = (ImageView) findViewById(R.id.shot4);
         shot5 = (ImageView) findViewById(R.id.shot5);
 
+        //ballImage.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.square_ball));
         bullets = new ImageView[]{shot1, shot2, shot3, shot4, shot5};
         ball = new Ball(ballImage);
         paddle = new Paddle(paddleImage);
