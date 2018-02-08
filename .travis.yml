@@ -1,3 +1,4 @@
+cd PONG
 language: android
 android:
   components:
@@ -19,7 +20,4 @@ android:
     - sys-img-armeabi-v7a-android-24
 
 before_install:
-  - cd PONG
-  - pwd
-  - ls -la
   - chmod +x /.gradlew
