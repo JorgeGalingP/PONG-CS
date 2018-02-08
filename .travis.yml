@@ -1,5 +1,6 @@
 
 language: android
+install: ant deps
 android:
   components:
     # Update Android SDK Tools
