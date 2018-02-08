@@ -20,6 +20,6 @@ android:
   
 before_script: cd PONG
 
-script: ./gradlew build connectedCheck
+before_install: chmod +x gradlew
 #before_install:
 #  - chmod +x /.gradlew
