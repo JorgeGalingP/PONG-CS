@@ -1,4 +1,7 @@
+sudo: false
 language: android
+jdk:
+  - oraclejdk8
 android:
   components:
     # Update Android SDK Tools
@@ -18,8 +21,14 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-24
   
-before_script: cd PONG
+before_script: 
+- cd PONG
 
-before_install: chmod +x gradlew
+script:
+- "/.gradlew clean build"
+
+before_install: 
+- chmod +x /.gradlew
+
 #before_install:
-#  - chmod +x /.gradlew
+#  - chmod +x gradlew
