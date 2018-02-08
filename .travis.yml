@@ -1,4 +1,3 @@
-cd PONG
 language: android
 android:
   components:
@@ -18,6 +17,9 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-24
+  
+before_script: 
+  - cd PONG
 
 before_install:
   - chmod +x /.gradlew
