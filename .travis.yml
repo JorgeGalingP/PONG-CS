@@ -33,3 +33,15 @@ before_install:
   # Run gradle in correct directory
   - cd PONG
   - chmod +x gradlew
+  
+addons:
+  sonarcloud:
+    organization: "CS2018PONG" # the key of the org you chose at step #3
+    token:
+      secure: ad39e12bfb7c3c4065d79575fd5315034d4d94d0 # encrypted value of your token
+script:
+  # other script steps might be done before running the actual analysis
+  - ./gradlew sonarqube \
+  - Dsonar.organization=jorgegalingp-github \
+  - Dsonar.host.url=https://sonarcloud.io \
+  - Dsonar.login=ad39e12bfb7c3c4065d79575fd5315034d4d94d0
