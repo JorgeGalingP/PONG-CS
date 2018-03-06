@@ -41,7 +41,8 @@ addons:
       secure: ad39e12bfb7c3c4065d79575fd5315034d4d94d0 # encrypted value of your token
 script:
   # other script steps might be done before running the actual analysis
-  - ./gradlew sonarqube
-  - Dsonar.organization=jorgegalingp-github
-  - Dsonar.host.url=https://sonarcloud.io
-  - Dsonar.login=ad39e12bfb7c3c4065d79575fd5315034d4d94d0
+  # - ./gradlew sonarqube
+  # - Dsonar.organization=jorgegalingp-github
+  # - Dsonar.host.url=https://sonarcloud.io
+  # - Dsonar.login=ad39e12bfb7c3c4065d79575fd5315034d4d94d0
+  - sonar-scanner
