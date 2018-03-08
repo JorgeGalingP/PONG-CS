@@ -39,7 +39,7 @@ addons:
   sonarcloud:
     organization: "cs-pong-2018" # the key of the org you chose at step #3
     token:
-      secure: $SONAR_TOKEN # encrypted value of your token
+      secure: 7c06df55ded29cb20021d286c70a8adf178c52fd # encrypted value of your token
     branches:
       - master
   
