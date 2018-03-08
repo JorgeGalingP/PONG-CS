@@ -39,10 +39,9 @@ addons:
   sonarcloud:
     organization: "CS2018PONG" # the key of the org you chose at step #3
     token:
-      secure: ad39e12bfb7c3c4065d79575fd5315034d4d94d0 # encrypted value of your token
+      secure: $SONAR_TOKEN # encrypted value of your token
     branches:
       - master
   
 script:
-  # - sonar-scanner
-  - ./gradlew sonarqube --stacktrace
+  - sonar-scanner
