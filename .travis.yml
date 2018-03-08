@@ -1,7 +1,6 @@
 dist: trusty
-language: android
-jdk: oraclejdk8
 sudo: false
+language: android
 
 android:
   components:
@@ -37,12 +36,13 @@ before_install:
   
 addons:
   sonarcloud:
-    organization: "cs-pong-2018" # the key of the org you chose at step #3
+    organization: "cs-pong-2018"
     token:
-      secure: 7c06df55ded29cb20021d286c70a8adf178c52fd # encrypted value of your token
+      secure: 7c06df55ded29cb20021d286c70a8adf178c52fd
     branches:
       - master
   
 script:
   - ./gradlew build
-  - ./gradlew sonarqube --stacktrace
+  - sonar-scanner
+  # - ./gradlew sonarqube --stacktrace
