@@ -36,7 +36,7 @@ before_install:
   
 addons:
   sonarcloud:
-    organization: "cs-pong-2018"
+    organization: "jorgegalingp-github"
     token:
       secure: 7c06df55ded29cb20021d286c70a8adf178c52fd
     branches:
@@ -44,5 +44,5 @@ addons:
   
 script:
   - ./gradlew build
-  - sonar-scanner
+  - sonar-scanner --stacktrace
   # - ./gradlew sonarqube --stacktrace
