@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -22,11 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView paddleImage;
     private ImageView ballImage;
-    private ImageView shot1;
-    private ImageView shot2;
-    private ImageView shot3;
-    private ImageView shot4;
-    private ImageView shot5;
     private Paddle paddle;
     private ImageView [] bullets;
     private Bullet bullet;
@@ -36,23 +32,25 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout board;
     private Button btnShot;
 
+    private String debugName = MainActivity.class.getName();
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnShot = (Button) findViewById(R.id.btnShot);
+        btnShot = findViewById(R.id.btnShot);
 
-        board = (RelativeLayout) findViewById(R.id.board);
+        board = findViewById(R.id.board);
 
-        ballImage = (ImageView) findViewById(R.id.ball);
-        paddleImage = (ImageView) findViewById(R.id.paddle);
-        shot1 = (ImageView) findViewById(R.id.shot1);
-        shot2 = (ImageView) findViewById(R.id.shot2);
-        shot3 = (ImageView) findViewById(R.id.shot3);
-        shot4 = (ImageView) findViewById(R.id.shot4);
-        shot5 = (ImageView) findViewById(R.id.shot5);
+        ballImage = findViewById(R.id.ball);
+        paddleImage = findViewById(R.id.paddle);
+        ImageView shot1 = findViewById(R.id.shot1);
+        ImageView shot2 = findViewById(R.id.shot2);
+        ImageView shot3 = findViewById(R.id.shot3);
+        ImageView shot4 = findViewById(R.id.shot4);
+        ImageView shot5 = findViewById(R.id.shot5);
 
 
         bullets = new ImageView[]{shot1, shot2, shot3, shot4, shot5};
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         ballThread.run();
 
 
-        final Button btnUp1 = (Button) findViewById(R.id.btnUp1);
+        final Button btnUp1 = findViewById(R.id.btnUp1);
         btnUp1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        final Button btnUp2 = (Button) findViewById(R.id.btnUp2);
+        final Button btnUp2 = findViewById(R.id.btnUp2);
         btnUp2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        final Button btnDown = (Button) findViewById(R.id.btnDown);
+        final Button btnDown = findViewById(R.id.btnDown);
         btnDown.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        final Button btnRight = (Button) findViewById(R.id.btnRight);
+        final Button btnRight = findViewById(R.id.btnRight);
         btnRight.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -118,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        final Button btnLeft = (Button) findViewById(R.id.btnLeft);
+        final Button btnLeft = findViewById(R.id.btnLeft);
         btnLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -137,12 +135,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        System.out.println(requestCode+""+resultCode);
+        Log.d(debugName, requestCode + "" + resultCode);
         if (requestCode == 999 && resultCode == RESULT_OK) {
             finish();
             startActivity(new Intent(this, MainActivity.class));
         }
-        System.out.println(requestCode+""+resultCode);
+        Log.d(debugName, requestCode + "" + resultCode);
         if(requestCode == 888 && resultCode == RESULT_OK){
             finish();
             startActivity(new Intent(this,MainActivity.class));
@@ -151,12 +149,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void shot(View v) {
         if (paddle.getBullets() > 0) {
-            System.out.println("DISPARO");
+            Log.d(debugName, "DISPARO");
 
             ImageView bulletImage = new ImageView(getBaseContext());
             bulletImage.setImageDrawable(getResources().getDrawable(R.drawable.bullet));
             bulletImage.setY(paddle.getElement().getY() + bulletImage.getHeight());
-            bulletImage.setX(paddle.getElement().getX() + (paddle.getElement().getWidth() / 2) - 10);
+            bulletImage.setX(paddle.getElement().getX() + (paddle.getElement().getWidth() / 2.0f) - 10);
             board.addView(bulletImage);
 
             bullets[paddle.getBullets() - 1].setVisibility(View.INVISIBLE);
@@ -170,20 +168,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void enabledShot() {
-        System.out.println("Habilitar disparo");
+        Log.d(debugName, "Habilitar disparo");
         bullet = null;
         btnShot.setEnabled(true);
     }
 
     public void gameOver() {
-        System.out.println("Entro en game over");
+        Log.d(debugName, "Entro en game over");
         finishGame();
         Intent intent = new Intent(this, GameOverActivity.class);
         startActivityForResult(intent, 999);
     }
 
     public void winGame() {
-        System.out.println("Entro en win game");
+        Log.d(debugName, "Entro en win game");
         finishGame();
         startActivityForResult(new Intent(this,VictoryActivity.class),888);
     }
@@ -192,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
         ballThread.stop();
         ballThread.getControl().removeCallbacks(ballThread);
 
-        paddleThread.stop();
         paddleThread.getControl().removeCallbacks(paddleThread);
     }
 
@@ -216,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
         return paddleImage;
     }
 
+    public void setPaddleImage(ImageView paddleImage) {
+        this.paddleImage = paddleImage;
+    }
+
     public PaddleThread getPaddleThread() {
         return paddleThread;
     }
@@ -230,10 +231,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setBoard(RelativeLayout board) {
         this.board = board;
-    }
-
-    public void setPaddleImage(ImageView paddleImage) {
-        this.paddleImage = paddleImage;
     }
 
     public ImageView getBallImage() {

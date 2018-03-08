@@ -15,7 +15,6 @@ public class PaddleThread implements Runnable {
     private MainActivity main;
     private int direction = -1;
     private Handler control;
-    public boolean stopPaddle;
 
     public PaddleThread(MainActivity main) {
         this.main = main;
@@ -64,11 +63,12 @@ public class PaddleThread implements Runnable {
         }
     }
 
-    public void stop(){
-        stopPaddle = true;
-    }
     public MainActivity getMain() {
         return main;
+    }
+
+    public void setMain(MainActivity main) {
+        this.main = main;
     }
 
     public Handler getControl() {
@@ -77,10 +77,6 @@ public class PaddleThread implements Runnable {
 
     public void setControl(Handler control) {
         this.control = control;
-    }
-
-    public void setMain(MainActivity main) {
-        this.main = main;
     }
 
     public int getDirection() {
