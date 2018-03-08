@@ -37,7 +37,7 @@ before_install:
   
 addons:
   sonarcloud:
-    organization: "CS2018PONG" # the key of the org you chose at step #3
+    organization: "cs_pong_2018" # the key of the org you chose at step #3
     token:
       secure: $SONAR_TOKEN # encrypted value of your token
     branches:
