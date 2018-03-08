@@ -44,4 +44,5 @@ addons:
       - master
   
 script:
-  - sonar-scanner
+  - ./gradlew build
+  - ./gradlew sonarqube --stacktrace
