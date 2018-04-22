@@ -12,7 +12,9 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         monochrome = true,
-        features = "app/src/test/java/com/example/jorge/pong/features/testing.feature"
+        features = {"app/src/test/java/com/example/jorge/pong/features/testing.feature",
+                "app/src/test/java/com/example/jorge/pong/features/smokeTest.feature"}
+
 )
 
 public class CucumberTestCase {
