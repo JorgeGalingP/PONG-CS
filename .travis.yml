@@ -30,9 +30,11 @@ before_script:
   - adb shell input keyevent 82 &
 
 before_install: 
-  # Run gradle in correct directory
+  # Run gradle in correct directory and install ruby and calabash
   - cd PONG
   - chmod +x gradlew
+  - sudo apt-get install ruby-full
+  - gem install calabash-android
   
 addons:
   sonarcloud:
@@ -44,5 +46,4 @@ addons:
   
 script:
   - ./gradlew build
-  # - sonar-scanner
   - ./gradlew sonarqube --stacktrace
