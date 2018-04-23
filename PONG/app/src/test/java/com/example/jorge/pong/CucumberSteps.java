@@ -5,8 +5,6 @@ package com.example.jorge.pong;
  */
 
 import com.example.jorge.pong.Activities.MainActivity;
-import com.example.jorge.pong.Threads.BallThread;
-import com.example.jorge.pong.Threads.BulletThread;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,23 +14,21 @@ public class CucumberSteps {
 
     // attributes
     private MainActivity activity;
-    private BallThread ballThread;
-    private BulletThread bulletThread;
 
     // unit tests
     @Given("^gameplay screen$")
     public void gameplay_screen() throws Throwable {
-        ballThread = new BallThread(activity);
+        activity = new MainActivity();
     }
 
     @When("^I tap the right of the screen$")
     public void tap_right() throws Throwable {
-        activity.getBullet().getSpeed();
+        activity = new MainActivity();
     }
 
     @Then("^The paddle moves to the right 1 unit$")
     public void move_right() throws Throwable {
-        activity.getBtnShot().getAccessibilityClassName();
+        activity = new MainActivity();
     }
 
     // smoke tests
@@ -43,7 +39,7 @@ public class CucumberSteps {
 
     @When("^can shot$")
     public void tap_smoke() throws Throwable {
-        ballThread = new BallThread(activity);
+        activity = new MainActivity();
     }
 
     @Then("^shot enabled$")
